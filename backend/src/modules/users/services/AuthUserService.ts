@@ -32,7 +32,7 @@ class AuthUserService {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new AppError('Incorrect email/password combination', 401);
+      throw new AppError('User not found', 401);
     }
 
     const passwordMatched = await this.hashProvider.compareHash(
