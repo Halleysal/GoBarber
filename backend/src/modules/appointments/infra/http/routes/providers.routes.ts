@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticaded from '@modules/users/infra/http/middlewares/ensureAuthenticaded';
 import ProvidersController from '../controllers/ProvidersController';
@@ -16,6 +17,11 @@ providersRouter.get('/', providersController.create);
 
 providersRouter.get(
   '/:provider_id/month-availability',
+  celebrate({
+    [Segments.PARAMS]: {
+      provider_id: Joi.string().uuid().required(),
+    },
+  }),
   providerMonthAvailabilityController.create,
 );
 
